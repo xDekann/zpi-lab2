@@ -610,7 +610,6 @@ Funkcjonalność istotna z perspektywy dalszego rozwoju i monetyzacji systemu, j
 
 **WF-VIP – Zaawansowane funkcje planowania dla użytkowników VIP**  
 Stanowi rozszerzenie funkcjonalności systemu skierowane do węższej grupy użytkowników. Niewielki wpływ na podstawową funkcjonalność aplikacji oraz relatywnie wysoki koszt wdrożenia uzasadniają najniższy priorytet.
-=======
 
 ## 5. Atrybuty Jakościowe
 
