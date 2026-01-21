@@ -112,8 +112,48 @@ Dla każdego wywołania:
 
 ## 4. Pre-Mortem dla PoC (ryzyka + plan zapobiegawczy)
 
-### 4.1 Założenie „porażki”
-Zakładamy, że wdrożenie PoC zakończyło się niepowodzeniem. Poniżej spisujemy możliwe przyczyny (techniczne, organizacyjne, bezpieczeństwa) oraz plan zapobiegawczy.
+
+### 4.1 Scenariusz porażki
+System odpowiada po 12 sekundach dla zapytania ?city=Rome&tags=museum,food. Wygenerowany JSON zawiera 5 punktów, gdize dwa z nich mają nazwę "null", a jeden to muzeum oddalone o 10 km od centrum (błąd filtrowania geograficznego) oraz kolejność zwiedzania wymusza na turyście trzykrotne przekraczanie Tybru (błąd algorytmu). Po trzecim zapytaniu API OpenTripMap zwraca błąd 429 (Too Many Requests). PoC zostaje uznane za porażkę.
+
+### 4.2 Identyfikacja przyczyn porażki
+
+Na podstawie notatek oraz analizy technicznej, zidentyfikowano następujące przyczyny, które doprowadziły do powyższego scenariusza:
+
+A. Problemy z danymi i zależnościami zewnętrznymi (OpenTripMap/OSRM):
+1.  Niespójność danych wejściowych: API OpenTripMap zwraca obiekty o różnej strukturze (brakujące pola `opening_hours`, `description`, `name`). System nie potrafił obsłużyć braku danych, co skutkowało pustymi polami w JSON.
+2.  Odmowa dostępu: skrypt testowy zablokował dostęp do API OpenTripMap ze względu na brak zaimplementowanego mechanizmu `backoff` lub cache'owania.
+3.  Nierozpoznanie kontekstu "zasięgu": API zwróciło atrakcje technicznie znajdujące się w "Rzymie", ale na peryferiach, co algorytm potraktował równoważnie z centrum miasta.
+
+B. Problemy algorytmiczne i logiczne:
+1.  Algorytm wpadł w pułapkę lokalną: prosty algorytm zachłanny wybrał najbliższy punkt, który geograficznie prowadził w ślepą uliczkę, wymuszając daleki powrót do kolejnych atrakcji (problem chaotycznej trasy).
+2.  Ignorowanie czynnika czasu: algorytm wytyczył trasę optymalną odległościowo, ale niemożliwą do realizacji (np. punkt zamykany o 14:00 został ustawiony na koniec dnia).
+3.  Złożoność obliczeniowa: przy dużej liczbie POI pobranych z OTM, zapytanie o macierz odległości do publicznego API OSRM trwało zbyt długo lub było odrzucane ze względu na wielkość ładunku.
+
+C. Problemy bezpieczeństwa i implementacyjne:
+1.  Brak walidacji wejścia: podatność punktu końcowego `/v1/plan` na wstrzyknięcie złośliwych danych w parametrach URL, co przy braku sanityzacji mogło doprowadzić do wycieku danych debugowania.
+2.  Dług technologiczny: wybór bibliotek był nieoptymalny (np. synchroniczne zapytania HTTP zamiast asynchronicznych), co wydłużyło czas odpowiedzi.
+
+### 4.3 Omówienie zagrożeń i ich konsekwencji
+
+Zespół przeanalizował zidentyfikowane przyczyny i pogrupował je według krytyczności dla powodzenia PoC:
+1.  Krytyczne ryzyko: jeśli OpenTripMap nie dostarczy kategoryzacji lub współrzędnych w przewidywalnym formacie, żaden algorytm nie naprawi planu. Jśli darmowe dane są zbyt niskiej jakości, założenie biznesowe o niskim koszcie utrzymania upada, bo trzeba płacić za inne API, na co nie ma budżetu.
+
+2.  Wysokie ryzyko: tster odrzuci aplikację, jeśli trasa będzie nielogiczna (zygzakowanie). Algorytm NN może być niewystarczający dla skomplikowanych układów miast. Jeśli PoC wykaże, że NN jest bezużyteczny, a bardziej zaawansowane algorytmy są zbyt wolne, projekt traci sens w obecnym kształcie.
+
+3.  Średnie ryzyko: uzależnienie od zewnętrznych API bez mechanizmów (takich jak Redis) sprawia, że aplikacja jest podatna na awarie dostawców. 
+    W kontekście bezpieczeństwa, brak walidacji parametrów wejściowych w PoC może prowadzić do nawyku ignorowania bezpieczeństwa w fazie MVP.
+
+### 4.4 Plan zapobiegawczy
+
+Dla kluczowych zagrożeń opracowano następujące działania zapobiegawcze:
+
+| Obszar | Zagrożenie | Działania zapobiegawcze |
+| :--- | :--- | :--- |
+| Dane | Niska jakość danych z OTM (braki w opisach, złe lokalizacje). | 1. Implementacja warstwy, która odrzuca POI bez nazwy lub współrzędnych przed przekazaniem do algorytmu.<br>2. Jeśli OTM zwróci pustą listę, użycie zapasowego, statycznego pliku JSON z "Top 10 atrakcji" dla najpopularniejszych miast, aby PoC zawsze coś zwróciło.<br>3. Ograniczenie obszaru wyszukiwania do promienia X km od centrum miasta, aby wyeliminować peryferia. |
+| Algorytm | Chaotyczna trasa i przekroczenie czasu 5s. | 1. Ograniczenie liczby punktów: algorytm w PoC przetwarza do 10-15 najlepiej ocenianych POI, a nie wszystkie pobrane. Mniejsza macierz to szybszy OSRM i lepszy wynik NN.<br>2. Wykorzystanie asynchroniczności do równoległego odpytywania API. |
+| Infrastruktura | Blokada API i niestabilność. | 1. Cache: implementacja prostego cache'owania odpowiedzi API. Zapytanie kolejny raz o te same dane nie zużywa limitów. |
+| Bezpieczeństwo | Wstrzyknięcie kodu/błędów, brak walidacji. | 1. Walidacja parametrów: ścisłe sprawdzanie typów parametrów wejściowych (np. `lat`/`lon` muszą być float, `tags` tylko z dozwolonej listy).<br>2. Obsługa błędów: zwracanie generycznych komunikatów błędów, aby nie ujawniać za dużo informacji. |
 
 
 ## 5. Załączniki
