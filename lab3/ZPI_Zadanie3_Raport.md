@@ -79,9 +79,12 @@ Kroki:
   2. Odpowiedź API (JSON)
   3. Całkowitą długość trasy
 
+Dla każdego wywołania wyliczamy minimalną sumę odległości ze zwróconych punktów - wywołanie powtarzamy N razy (np. 1000). Przy okazji sprawdzamy, czy za każdym razem uzyskane są wszystkie atrybuty w odpowiedzi API.
+
 #### Kryteria sukcesu
+Dla każdego wywołania:
 - Plan generuje się **< 5s**
-- Trasa zwiedzania jest uznana za niechaotyczną, jeśli jej całkowita długość nie przekracza **1,5× minimalnej możliwej sumy odległości** potrzebnej do połączenia wszystkich wybranych atrakcji w jedną spójną strukturę (przy założeniu znanych odległości między każdą parą atrakcji).
+- Gdy całkowita długość trasy nie przekracza 1,5-krotności minimalnej możliwej sumy odległości potrzebnej do połączenia wszystkich wybranych atrakcji w jedną spójną strukturę (minimalne drzewo rozpinające), przy założeniu, że każda para atrakcji ma znaną odległość między sobą.
 - Każdy punkt ma **nazwę, opis i lokalizację**
 
 #### Możliwe scenariusze i decyzje
