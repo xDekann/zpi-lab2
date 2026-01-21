@@ -40,9 +40,9 @@ Wstaw wizualizację (Gantt) dla epików – np. eksport z Jira lub zrzut ekranu.
 
 #### Hipoteza
 Da się automatycznie:
-- Czy API OpenTripMap daje wystarczająco dobre dane (POI, kategorie, współrzędne),
-- Czy da się szybko policzyć kolejność zwiedzania (np. najbliższy sąsiad / OSRM),
-- Czy wynik jest użyteczny (czas, dystans, kolejność).
+- Pobrać atrakcje z OpenTripMap dla miasta,
+- Ułożyć je w logicznej kolejności zwiedzania na podstawie odległości (routing),
+- Zrobić z tego sensowny jednodniowy plan w formie od atrakcji do atrakcji, gdzie każda atrakcja zawiera opis
 
 #### Co sprawdzamy technicznie
 - Czy API OpenTripMap daje wystarczająco dobre dane (POI, kategorie, współrzędne),
