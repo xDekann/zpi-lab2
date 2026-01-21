@@ -122,8 +122,8 @@ Na podstawie notatek oraz analizy technicznej, zidentyfikowano następujące prz
 
 A. Problemy z danymi i zależnościami zewnętrznymi (OpenTripMap/OSRM):
 1.  Niespójność danych wejściowych: API OpenTripMap zwraca obiekty o różnej strukturze (brakujące pola `opening_hours`, `description`, `name`). System nie potrafił obsłużyć braku danych, co skutkowało pustymi polami w JSON.
-2.  Odmowa dostępu: skrypt testowy zablokował dostęp do API OpenTripMap ze względu na brak zaimplementowanego mechanizmu `backoff` lub cache'owania.
-3.  Nierozpoznanie kontekstu "zasięgu": API zwróciło atrakcje technicznie znajdujące się w "Rzymie", ale na peryferiach, co algorytm potraktował równoważnie z centrum miasta.
+2.  Odmowa dostępu: skrypt testowy zablokował dostęp do API OpenTripMap ze względu na brak zaimplementowanego mechanizmu spowalniania żądań lub cache'owania.
+3.  Nierozpoznanie kontekstu zasięgu: API zwróciło atrakcje znajdujące się w mieście, ale na peryferiach, co algorytm potraktował równoważnie z centrum miasta.
 
 B. Problemy algorytmiczne i logiczne:
 1.  Algorytm wpadł w pułapkę lokalną: prosty algorytm zachłanny wybrał najbliższy punkt, który geograficznie prowadził w ślepą uliczkę, wymuszając daleki powrót do kolejnych atrakcji (problem chaotycznej trasy).
