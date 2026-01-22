@@ -107,6 +107,9 @@ Dla każdego wywołania:
 ![Tablica Sprintu](./Sprint-Table.png)
 *Rys. 3. Widok pierwszego Sprintu w narzędziu Jira.*
 
+![Cel Sprintu](./Sprint-Goal.png)
+*Rys. 4. Widok celu biznesowego Sprintu w narzędziu Jira.*
+
 ### 3.4 Definition of Done (DoD)
 
 ---
