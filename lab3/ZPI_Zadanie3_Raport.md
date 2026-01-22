@@ -18,14 +18,16 @@ Celem niniejszego raportu jest przedstawienie:
 
 ### 2.1 Epiki (MVP)
 | ID | Epic | Opis (1–2 zdania) | Priorytet |
-|---:|------|-------------------|:---------:|
-| EP-01 | \<nazwa\> | \<opis\> | High/Med/Low |
-| EP-02 | \<nazwa\> | \<opis\> | High/Med/Low |
-| EP-03 | \<nazwa\> | \<opis\> | High/Med/Low |
-| EP-04 | \<nazwa\> | \<opis\> | High/Med/Low |
+|----|------|-------------------|:---------:|
+| ZPI&#8209;5 | Core – Silnik generowania planu (WF-PLAN) | Epik obejmuje implementację kluczowego silnika aplikacji odpowiedzialnego za automatyczne generowanie harmonogramu zwiedzania na podstawie parametrów wejściowych użytkownika oraz danych z otwartych źródeł. Stanowi fundament systemu i jest realizowany w pierwszej kolejności jako Proof of Concept. | High |
+| ZPI&#8209;13 | Wizualizacja planu i mapa (WF-INFO) | Epik koncentruje się na czytelnej prezentacji wygenerowanego planu podróży w formie listy chronologicznej oraz interaktywnej mapy, umożliwiającej podgląd atrakcji i ich lokalizacji. | Medium |
+| ZPI&#8209;21 | Edycja planu i logistyka podróży (WF-MOD, WF-NOC) | Epik obejmuje podstawowe mechanizmy edycji wygenerowanego planu oraz obsługę logistyki dnia, takie jak usuwanie i przenoszenie atrakcji oraz start i koniec dnia z placeholderami noclegowymi. | Medium |
 
-> **Screenshot:** backlog epików z Jira – wklej tutaj (lub link).  
-> `![Backlog epików](./img/epics.png)`
+### Backlog produktu (Jira)
+
+![Backlog produktu ? epiki i historyjki](./Backlog-Jira.png)
+*Rys. 1. Widok Product Backlog w narz?dziu Jira z podzia?em na epiki i historyjki u?ytkownika.*
+
 
 ### 2.2 Roadmapa (oś czasu – tylko epiki)
 Wstaw wizualizację (Gantt) dla epików – np. eksport z Jira lub zrzut ekranu.
@@ -119,5 +121,5 @@ Zakładamy, że wdrożenie PoC zakończyło się niepowodzeniem. Poniżej spisuj
 ## 5. Załączniki
 
 ### 5.1 Linki
-- Jira project: \<link\>
-- Repozytorium: \<link\>
+- [**Jira projekt**](https://zpi-zad3.atlassian.net/jira/software/projects/ZPI/summary)
+- [**Repozytorium**](https://github.com/xDekann/zpi-lab)
