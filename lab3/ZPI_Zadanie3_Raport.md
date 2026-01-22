@@ -30,10 +30,9 @@ Celem niniejszego raportu jest przedstawienie:
 
 
 ### 2.2 Roadmapa (oś czasu – tylko epiki)
-Wstaw wizualizację (Gantt) dla epików – np. eksport z Jira lub zrzut ekranu.
 
-> **Screenshot:** roadmapa epików  
-> `![Roadmapa](./img/roadmap.png)`
+![Roadmap epiców](./Epic-Timeline.png)
+*Rys. 2. Widok Timeline Epików w narzędziu Jira.*
 
 ## 3. Część B – Planowanie Sprintu 1 (2 tygodnie) na podstawie PoC
 
@@ -105,8 +104,8 @@ Dla każdego wywołania:
 
 ### 3.3 Tablica sprintu
 
-> **Screenshot:** tablica sprintu (To Do / In Progress / Done)  
-> `![Tablica sprintu](./img/sprint-board.png)`
+![Tablica Sprintu](./Sprint-Table.png)
+*Rys. 3. Widok pierwszego Sprintu w narzędziu Jira.*
 
 ### 3.4 Definition of Done (DoD)
 
