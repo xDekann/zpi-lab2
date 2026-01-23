@@ -137,9 +137,9 @@ C. Problemy bezpieczeństwa i implementacyjne:
 ### 4.3 Omówienie zagrożeń i ich konsekwencji
 
 Zespół przeanalizował zidentyfikowane przyczyny i pogrupował je według krytyczności dla powodzenia PoC:
-1.  Krytyczne ryzyko: jeśli OpenTripMap nie dostarczy kategoryzacji lub współrzędnych w przewidywalnym formacie, żaden algorytm nie naprawi planu. Jśli darmowe dane są zbyt niskiej jakości, założenie biznesowe o niskim koszcie utrzymania upada, bo trzeba płacić za inne API, na co nie ma budżetu.
+1.  Krytyczne ryzyko: jeśli OpenTripMap nie dostarczy kategoryzacji lub współrzędnych w przewidywalnym formacie, żaden algorytm nie naprawi planu. Jeśli darmowe dane są zbyt niskiej jakości, założenie biznesowe o niskim koszcie utrzymania upada, bo trzeba płacić za inne API, na co nie ma budżetu.
 
-2.  Wysokie ryzyko: tster odrzuci aplikację, jeśli trasa będzie nielogiczna (zygzakowanie). Algorytm NN może być niewystarczający dla skomplikowanych układów miast. Jeśli PoC wykaże, że NN jest bezużyteczny, a bardziej zaawansowane algorytmy są zbyt wolne, projekt traci sens w obecnym kształcie.
+2.  Wysokie ryzyko: tester odrzuci aplikację, jeśli trasa będzie nielogiczna (zygzakowanie). Algorytm NN może być niewystarczający dla skomplikowanych układów miast. Jeśli PoC wykaże, że NN jest bezużyteczny, a bardziej zaawansowane algorytmy są zbyt wolne, projekt traci sens w obecnym kształcie.
 
 3.  Średnie ryzyko: uzależnienie od zewnętrznych API bez mechanizmów (takich jak Redis) sprawia, że aplikacja jest podatna na awarie dostawców. 
     W kontekście bezpieczeństwa, brak walidacji parametrów wejściowych w PoC może prowadzić do nawyku ignorowania bezpieczeństwa w fazie MVP.
