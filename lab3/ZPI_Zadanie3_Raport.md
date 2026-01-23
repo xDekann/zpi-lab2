@@ -123,11 +123,11 @@ Dla każdego wywołania:
 
 #### 2. Warstwa API (v1/plan)
 - **Endpoint:** Interfejs `/v1/plan` przyjmuje żądania i zwraca poprawną strukturę danych JSON zawierającą POI w odpowiedniej kolejności zwiedzania.
-- **Obsługa błędów (ZPI-41):** System zwraca kody 4xx/5xx w przypadku braku danych, błędnych parametrów lub awarii silnika.
+- **Obsługa błędów (ZPI-41):** System zwraca kody 4xx/5xx w przypadku braku danych, błędnych parametrów lub awarii silnika bez ujawniania szczegółów implementacyjnych.
 - **Dokumentacja:** Kontrakt API jest opisany w standardzie OpenAPI/Swagger.
 
 #### 3. Walidacja Techniczna i Jakość
-- **Integracja:** Testy integracyjne przechodzą pomyślnie w środowisku deweloperskim.
+- **Integracja:** Testy integracyjne przechodzą pomyślnie w środowisku deweloperskim z wykorzystaniem wcześniej przygotowanych danych testowych.
 - **Jakość kodu:** Kod przeszedł procedurę Code Review i nie zawiera krytycznych błędów.
 - **Testy:** Pokrycie testami jednostkowymi kluczowej logiki algorytmu wynosi min. 80%.
 
@@ -141,7 +141,7 @@ Dla każdego wywołania:
 
 #### 1. Wygląd i Działanie (UI/UX)
 - **Mapa:** Interaktywna mapa (OpenStreetMap) poprawnie wyświetla trasę zwiedzania i wszystkie punkty (POI).
-- **Lista:** Harmonogram jest czytelny, podzielony na konkretne dni i ułożony chronologicznie (oś czasu).
+- **Lista:** Harmonogram jest czytelny, podzielony na konkretne dni i ułożony chronologicznie (oś czasu), elementy interfejsu nie wychodzą poza ekran w sposób niekontrolowany.
 - **Szczegóły:** Po kliknięciu w atrakcję pojawia się okno lub widok z opisem i zdjęciami miejsca.
 - **Synchronizacja:** najechanie myszką na element listy podświetla odpowiadający mu punkt na mapie (i na odwrót).
 - **Responsywność:** Widok mapy i listy dopasowuje się do ekranu telefonu i komputera.
@@ -152,11 +152,11 @@ Dla każdego wywołania:
 
 #### 3. Jakość Techniczna
 - **Kontrola kodu:** Przynajmniej dwie osoby z zespołu sprawdziły kod pod kątem błędów i czytelności.
-- **Czystość zapisu:** Kod nie zawiera niepotrzebnych powtórzeń i jest zgodny z przyjętymi standardami zespołu.
+- **Czystość zapisu:** Kod nie zawiera niepotrzebnych powtórzeń i jest zgodny z przyjętymi standardami zespołu oraz celowo unika przedwczesnych abstrakcji, aby nie zaciemniać implementacji.
 - **Wydajność:** Mapa ładuje się płynnie, a przełączanie między dniami nie powoduje zawieszania aplikacji.
 
 #### 4. Akceptacja Końcowa
-- Funkcjonalność została przetestowana na różnych urządzeniach (telefon, laptop).
+- Funkcjonalność została przetestowana na różnych urządzeniach (telefon, laptop) na wersjach głównych najpopularniejszych przeglądarek (Chrome, Edge, Safari, Firefox).
 - Wszystkie zmiany zostały zapisane w głównym folderze projektu.
 - Wynik prac został pokazany i zaakceptowany przez osobę decyzyjną.
 
